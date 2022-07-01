@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import HeroesListScreen from "./src/features/heroes/screens/HeroesListScreen";
+import HeroesDetailScreen from "./src/features/heroes/screens/HeroesDetailScreen";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+const navigator = createStackNavigator({
+  HeroesList: HeroesListScreen,
+  HeroesDetail: HeroesDetailScreen
+}, {
+  initialRouteName: "HeroesList",
+  defaultNavigationOptions: {
+    title: "Marvel App"
+  }
 });
+
+export default createAppContainer(navigator)
