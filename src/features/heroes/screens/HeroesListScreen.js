@@ -1,18 +1,21 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, FlatList, Image } from "react-native";
+import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import HeroesService from "../../../services/heroes/HeroesService";
+import HeroesList from "../components/HeroesList";
 
-const HeroesListScreen = ({ navigation }) => {
+const HeroesListScreen = () => {
     const [heroes, errorMessage] = HeroesService();
+
+    const filterHeroesByDescription = (heroes) => {
+        return heroes.filter(hero => {
+            return hero.description != "";
+        })
+    };
 
     return (
         <View>
-            <Text>List Screen</Text>
-            <Button
-                title="Go to Detail screen" 
-                onPress={() => navigation.navigate("HeroesDetail")} />
-            <Text>Numero de heroes: {heroes.length}</Text>
             {errorMessage ? <Text>{errorMessage}</Text> : null}
+            <HeroesList heroes={filterHeroesByDescription(heroes)}/>
         </View>
     );
 };
